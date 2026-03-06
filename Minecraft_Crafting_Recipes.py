@@ -121,14 +121,30 @@ log_aliases = {
 
 exotic_suffixes = ["wood", "hyphae"]
 
-wood = input("Enter the type of wood your using: ").strip().lower()
-if wood.endswith(tuple(exotic_suffixes)) or wood.startswith("bamboo"):
-    print("This is any exotic wood type.")
+wood = input("Enter the type of wood you're using: ").strip().lower()
 
-# if wood in item_aliases:
-#     wood_type = item_aliases[wood]
-#     if wood_type in log_aliases:
-#         log_type = log_aliases[wood_type]
-#         planks_amount = wood_types_to_planks_amount.get(log_type, 0)
-#         print(f"You can craft {planks_amount} {wood_type} planks from one {log_type}.")
-    
+if wood.endswith(tuple(exotic_suffixes)):
+    full_word = input("Please enter the full name of the wood type: ").strip().lower()
+    wood = full_word
+
+    if wood in item_aliases:
+        wood_type = item_aliases[wood]
+        if wood_type in log_aliases:
+            log_type = log_aliases[wood_type]
+            planks_amount = wood_types_to_planks_amount.get(log_type, 0)
+            print(f"You can craft {planks_amount} {wood_type} planks from one {log_type}.")
+
+elif wood.startswith("bamboo"):
+    verification = input("Do you mean bamboo_block, or bamboo? Please type the full name: ").strip().lower()
+    if verification == "bamboo_block":
+        wood = verification
+
+        if wood in item_aliases:
+            wood_type = item_aliases[wood]
+            if wood_type in log_aliases:
+                log_type = log_aliases[wood_type]
+                planks_amount = wood_types_to_planks_amount.get(log_type, 0)
+                print(f"You can craft {planks_amount} {wood_type} planks from one {log_type}.")
+
+    elif verification == "bamboo":
+        print("Bamboo can't be crafted into planks.")
